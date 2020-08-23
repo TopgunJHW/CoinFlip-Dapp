@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+
+    <title> Coin flip </title>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
+    <!-- <script type="text/javascript" src="./web3.min.js"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+    <script>
+      function coinButton(btn1, btn2){
+        btn1_Opacity = 1;
+        btn2_Opacity = 0.6;
+        setOpacity(btn1, btn1_Opacity);
+        setOpacity(btn2, btn2_Opacity);
+
+        var choice = "Tail"
+        if(btn1 == "headButton"){
+          var choice = "Head"
+        }
+        document.getElementById("choice").innerHTML = choice;
+      }
+      function setOpacity(btn, opacity) {
+        document.getElementById(btn).style.opacity = opacity;
+      }
+    </script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+    .button {
+      border: none;
+      outline: none;
+      color: white;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 4px 4px;
+
+      border-radius: 50px ;
+      height: 100px ;
+      width: 100px ;
+    }
+    .button:focus {
+      outline: none;
+    }
+
+    .buttonHead {background-color: #4CAF50; opacity: 0.6} /* Green */
+    .buttonTail {background-color: #008CBA; opacity: 0.6} /* Red */
+
+    </style>
+
+  </head>
+  <body style="text-align:center">
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">CoinFlip Dapp</h1>
+        <p class="lead">Gambling costs money!</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div>
+        <h1> Flip a coin</h1>
+
+        <button class="button buttonHead" id="headButton" onclick="coinButton('headButton', 'tailButton')">
+          Head</button>
+        <button class="button buttonTail" id="tailButton" onclick="coinButton('tailButton', 'headButton')">
+          Tail</button>
+        <p>Choose coin side to bet on</p>
+
+        <h3>You choose:</h3>
+        <p id="choice"></p>
+        <br>
+        <h1>Your bet in Ether</h1>
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" id="betAmount" placeholder="0.1" >
+        </div>
+
+
+      </div>
+    </div>
+
+  </body>
+</html>

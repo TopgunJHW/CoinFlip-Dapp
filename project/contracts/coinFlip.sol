@@ -30,10 +30,10 @@ contract coinFlip{
     if(answer == random()){
       msg.sender.transfer(msg.value * 2);
       result = "You win";
-    };
+    }
 
     emit betResult(result);
-    return Rr;
+    return result;
   }
 
 }
