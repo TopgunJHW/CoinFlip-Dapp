@@ -7,9 +7,15 @@
 
     <title> Coin flip </title>
 
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
-    <!-- <script type="text/javascript" src="./web3.min.js"></script> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./web3.min.js"></script>
+    <script type="text/javascript" src="./abi.js"></script>
+    <script type="text/javascript" src="./main.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <script>
       function coinButton(btn1, btn2){
         btn1_Opacity = 1;
@@ -21,14 +27,16 @@
         if(btn1 == "headButton"){
           var choice = "Head"
         }
-        document.getElementById("choice").innerHTML = choice;
+        // document.getElementById("choice").innerHTML = choice;
+        // document.getElementById("choice").attribute = choice;
+        $("#choice").text(choice);
+
       }
       function setOpacity(btn, opacity) {
         document.getElementById(btn).style.opacity = opacity;
       }
     </script>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
     .button {
       border: none;
@@ -49,7 +57,13 @@
 
     .buttonHead {background-color: #4CAF50; opacity: 0.6} /* Green */
     .buttonTail {background-color: #008CBA; opacity: 0.6} /* Red */
+    .btn_bet {width: 10%;}
 
+    div.ex2 {
+      max-width:200px;
+      margin: auto;
+      border: 2px solid #000000;
+    }
     </style>
 
   </head>
@@ -63,8 +77,11 @@
 
     <div class="container">
       <div>
-        <h1> Flip a coin</h1>
 
+        <h2>Reward</h2>
+        <p> 2x on bet amount!</p>
+
+        <h2> Flip a coin</h2>
         <button class="button buttonHead" id="headButton" onclick="coinButton('headButton', 'tailButton')">
           Head</button>
         <button class="button buttonTail" id="tailButton" onclick="coinButton('tailButton', 'headButton')">
@@ -72,13 +89,21 @@
         <p>Choose coin side to bet on</p>
 
         <h3>You choose:</h3>
-        <p id="choice"></p>
+        <p id="choice">...</p>
         <br>
-        <h1>Your bet in Ether</h1>
-        <div class="input-group mb-3">
-          <input type="number" class="form-control" id="betAmount" placeholder="0.1" >
-        </div>
 
+        <h2>Your bet in Ether</h2>
+        <div class="input-group mb-3 ex2">
+          <input type="number" class="form-control" id="betAmount" placeholder="0.1" style="text-align:center">
+        </div>
+        <button type="button" id="bet_button" class="btn btn-primary btn_bet">Place bet</button>
+        <br><br><br>
+
+        <h2>Result</h2>
+        <p id="result"></p>
+        <p id="amount"></p>
+        <!-- <p id="Prize">...</p> -->
+        <!-- <button type="button" id="get_data_button" class="btn btn-primary">Get result</button> -->
 
       </div>
     </div>

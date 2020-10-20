@@ -9,14 +9,19 @@ contract coinFlip{
       _;
   }
 
-  event betResult(string result);
-  event contractFunded(uint amount);
+  event betResult(string _result, uint _value);
+  event contractFunded(uint _value);
+  // event prize(uint amount);
+
+
+  // uint public balance;
 
   function getBalance() public view returns(uint){
     return address(this).balance;
   }
 
   function fundContract() public payable{
+    // balance += msg.value;
     emit contractFunded(getBalance());
   }
 
@@ -26,13 +31,15 @@ contract coinFlip{
 
   function bet(uint answer) public payable costs(0.1 ether)returns(string memory){
     string memory result = "You lose";
+    uint amount = msg.value;
 
     if(answer == random()){
-      msg.sender.transfer(msg.value * 2);
       result = "You win";
+      amount = amount * 2;
+      msg.sender.transfer(amount);
     }
 
-    emit betResult(result);
+    emit betResult(result, amount);
     return result;
   }
 
