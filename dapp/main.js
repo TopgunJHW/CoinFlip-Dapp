@@ -6,7 +6,7 @@ $(document).ready(function() {
     window.ethereum.enable().then(function(accounts){// Ask user for permission for webpage to access MetaMask.
       //contractInstance = new web3.eth.Contract(abi, address)
       // abi = template of the specification of the contract. What are the functions, what are the inputs and the outputs. javascript can than know what type of data to sent and to receive.
-      contractInstance = new web3.eth.Contract(abi, "0xD189f49d6FE43a2257a60E1d78ae70eDcD41EDE6", {from: accounts[0]});
+      contractInstance = new web3.eth.Contract(abi, "0xEbB9aA610b760b9582e30Ce1b68Be84AF8ca22fd", {from: accounts[0]});
       console.log(contractInstance);
 
       $("#bet_button").click(bet)

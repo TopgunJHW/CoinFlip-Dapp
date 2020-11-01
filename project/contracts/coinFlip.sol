@@ -1,6 +1,7 @@
+import "./Ownable.sol";
 pragma solidity 0.5.12;
 
-contract coinFlip{
+contract coinFlip is Ownable{
 
   // uint public balance;
 
@@ -13,7 +14,6 @@ contract coinFlip{
   event contractFunded(uint _value);
   // event prize(uint amount);
 
-
   // uint public balance;
 
   function getBalance() public view returns(uint){
@@ -25,11 +25,17 @@ contract coinFlip{
     emit contractFunded(getBalance());
   }
 
+  function withdrawAll() public onlyOwner returns(uint) {
+      uint toTransfer = getBalance();
+      msg.sender.transfer(toTransfer);
+      return toTransfer;
+  }
+
   function random() public view returns(uint){
     return now % 2;
   }
 
-  function bet(uint answer) public payable costs(0.1 ether)returns(string memory){
+  function bet(uint answer) public payable costs(0.001 ether)returns(string memory){
     string memory result = "You lose";
     uint amount = msg.value;
 
