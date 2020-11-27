@@ -1,9 +1,8 @@
 import "./Ownable.sol";
+import "./provableRN.sol";
 pragma solidity 0.5.12;
 
-contract coinFlip is Ownable{
-
-  // uint public balance;
+contract coinFlip is Ownable, provableRN{
 
   modifier costs(uint cost){
       require(msg.value >= cost);
@@ -13,8 +12,6 @@ contract coinFlip is Ownable{
   event betResult(string _result, uint _value);
   event contractFunded(uint _value);
   // event prize(uint amount);
-
-  // uint public balance;
 
   function getBalance() public view returns(uint){
     return address(this).balance;
@@ -47,6 +44,11 @@ contract coinFlip is Ownable{
 
     emit betResult(result, amount);
     return result;
+  }
+
+  // Function that will be executed after callback by provable oracle.
+  function callbackFunction(uint256 randomNumber, bytes32 queryId, string memory _result, bytes memory _proof) public {
+    
   }
 
 }
