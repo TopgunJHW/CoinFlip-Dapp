@@ -1,7 +1,7 @@
 import "./provableAPI.sol";
 pragma solidity 0.5.12;
 
-contract RandomExample is usingProvable{
+contract randomCall is usingProvable{
 
   uint256 constant NUMBER_RANDOM_BYTES = 1;
   uint256 public latestNumber;
