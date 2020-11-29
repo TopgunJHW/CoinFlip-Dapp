@@ -1,6 +1,6 @@
 pragma solidity 0.5.12;
 
-contract Ownable{
+contract ownable{
     address public owner;
 
     modifier onlyOwner(){
