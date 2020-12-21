@@ -1,3 +1,4 @@
-
+draft/
 project/.secret
-project/.projectNote.txt
+project/build/
+project/node_modules/
