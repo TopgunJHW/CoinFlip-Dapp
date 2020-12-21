@@ -1,10 +1,11 @@
 import "./ownable.sol";
 // import "./provableRN.sol";
-import "./provableAPI.sol";
+// import "./provableAPI.sol";
 pragma solidity 0.5.12;
 
 // contract coinFlip is ownable, provableRN{
-contract coinFlip is ownable, usingProvable{
+contract coinFlip is ownable{
+// contract coinFlip is ownable, usingProvable{
 
   // uint256 public moduloRN = 2;
   // bool boolCallbackFunction = true;
@@ -26,8 +27,8 @@ contract coinFlip is ownable, usingProvable{
     uint256 randomNumber;
   }
 
-  mapping (bytes32 => infoBet) public historyBets;
-  mapping (address => bytes32[]) public playersQueryIds;
+  mapping (bytes32 => infoBet) private historyBets;
+  mapping (address => bytes32[]) private playersQueryIds;
   address[] public players;
 
   function getBalance() public view returns(uint256){
@@ -45,7 +46,7 @@ contract coinFlip is ownable, usingProvable{
       return toTransfer;
   }
 
-  function bet(uint256 guessNumber) public payable costs(0.001 ether){
+  function makeBet(uint256 guessNumber) public payable costs(0.001 ether){
     bytes32 queryId = generateRandomNumber();
     address player = msg.sender;
     uint256 betAmount = msg.value;
@@ -68,6 +69,11 @@ contract coinFlip is ownable, usingProvable{
     }else{
       playersQueryIds[player].push(queryId);
     }
+
+
+    // Code for test random function without using oracle
+    uint256 randomNumber = historyBets[queryId].randomNumber;
+    settleBet(queryId, randomNumber);
   }
 
   // // Function that will be executed after callback by provable oracle.
@@ -101,10 +107,6 @@ contract coinFlip is ownable, usingProvable{
   }
 
 
-
-
-
-
   uint256 constant NUMBER_RANDOM_BYTES = 1;
   uint256 EXECUTION_DELAY = 0;
   uint256 CALLBACK_GAS_LIMIT = 200000;
@@ -122,16 +124,20 @@ contract coinFlip is ownable, usingProvable{
   // function callbackFunction(uint256 randomNumber, bytes32 queryId, string memory _result, bytes memory _proof) public {}
 
   function __callback(bytes32 queryId, string memory _result, bytes memory _proof) public {
-    require(msg.sender == provable_cbAddress());
+    // require(msg.sender == provable_cbAddress());
 
     uint256 randomNumber = uint256(keccak256(abi.encodePacked(_result))) % moduloRN;
+    historyBets[queryId].randomNumber = randomNumber;
     emit generatedRandomNumber(randomNumber);
 
+    // settleBet(queryId, randomNumber); //Uncomment for provable RN
+  }
+
+  function settleBet(bytes32 queryId, uint256 randomNumber) internal {
     address payable player = address(uint160(historyBets[queryId].player));
     uint256 betAmount = historyBets[queryId].betAmount;
     uint256 guessNumber = historyBets[queryId].guessNumber;
     string memory result = "You lose";
-    historyBets[queryId].randomNumber = randomNumber;
 
     if(guessNumber == randomNumber){
       result = "You win";
@@ -139,13 +145,20 @@ contract coinFlip is ownable, usingProvable{
       player.transfer(betAmount);
     }
     emit betResult(queryId, result, betAmount);
-    }
+  }
 
   function generateRandomNumber() payable public returns(bytes32){
-    bytes32 queryId = provable_newRandomDSQuery(EXECUTION_DELAY,NUMBER_RANDOM_BYTES,
-      CALLBACK_GAS_LIMIT);
+    bytes32 queryId = testRandomNumber();
+    // bytes32 queryId = provable_newRandomDSQuery(EXECUTION_DELAY,NUMBER_RANDOM_BYTES,
+    //   CALLBACK_GAS_LIMIT);
     emit logNewProvableQuery("Query for random number has been sent. Waiting for response.");
     lastQueryID = queryId;
+    return queryId;
+  }
+
+  function testRandomNumber() public returns(bytes32){
+    bytes32 queryId = bytes32(keccak256(abi.encodePacked(msg.sender)));
+    __callback(queryId, "1", bytes("test"));
     return queryId;
   }
   // function random() public view returns(uint){

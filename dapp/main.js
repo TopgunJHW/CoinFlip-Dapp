@@ -23,7 +23,7 @@ $(document).ready(function() {
 
       var config = {value: web3.utils.toWei(betAmount, "ether")}
 
-      contractInstance.methods.bet(choiceNB).send(config)
+      contractInstance.methods.makeBet(choiceNB).send(config)
       .on("transactionHash", function(hash){     //.on is an event listener listening to specific event
         console.log(hash);
       })
