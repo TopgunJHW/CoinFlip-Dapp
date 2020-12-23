@@ -64,6 +64,19 @@ var abi = [
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "testBlocknumber",
+    "type": "event"
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "lastQueryID",
@@ -195,6 +208,11 @@ var abi = [
         "internalType": "uint256",
         "name": "randomNumber",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "blockNumber",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -316,4 +334,4 @@ var abi = [
     "stateMutability": "nonpayable",
     "type": "function"
   }
-];
+]

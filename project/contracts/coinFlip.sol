@@ -18,6 +18,7 @@ contract coinFlip is ownable{
   event betResult(bytes32 queryId, string _result, uint256 _value);
   event contractFunded(uint256 _value);
   // event prize(uint amount);
+  event testBlocknumber(uint256);
 
   struct infoBet {
     bytes32 queryId;
@@ -25,7 +26,7 @@ contract coinFlip is ownable{
     uint256 betAmount;
     uint256 guessNumber;
     uint256 randomNumber;
-    uint256 blockNumber:
+    uint256 blockNumber;
   }
 
   mapping (bytes32 => infoBet) private historyBets;
@@ -41,9 +42,13 @@ contract coinFlip is ownable{
   }
 
   function getBetInfo(bytes32 queryId) public view returns(address player,
-    uint256 betAmount, uint256 guessNumber, uint256 randomNumber) {
-    return (historyBets[queryId].player, historyBets[queryId].betAmount,
-      historyBets[queryId].guessNumber, historyBets[queryId].randomNumber);
+    uint256 betAmount, uint256 guessNumber, uint256 randomNumber, uint256 blockNumber) {
+    return (historyBets[queryId].player,
+      historyBets[queryId].betAmount,
+      historyBets[queryId].guessNumber,
+      historyBets[queryId].randomNumber,
+      historyBets[queryId].blockNumber
+    );
   }
 
   function getPlayer(uint256 index) public view returns(address){
@@ -147,6 +152,7 @@ contract coinFlip is ownable{
       player.transfer(betAmount);
     }
     emit betResult(queryId, result, betAmount);
+    emit testBlocknumber(block.number-1);
   }
 
   function generateRandomNumber() payable public returns(bytes32){
