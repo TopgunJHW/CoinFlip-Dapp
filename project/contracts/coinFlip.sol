@@ -25,6 +25,7 @@ contract coinFlip is ownable{
     uint256 betAmount;
     uint256 guessNumber;
     uint256 randomNumber;
+    uint256 blockNumber:
   }
 
   mapping (bytes32 => infoBet) private historyBets;
@@ -33,6 +34,20 @@ contract coinFlip is ownable{
 
   function getBalance() public view returns(uint256){
     return address(this).balance;
+  }
+
+  function getQueryIDs(address player) public view returns(bytes32[] memory) {
+    return playersQueryIds[player];
+  }
+
+  function getBetInfo(bytes32 queryId) public view returns(address player,
+    uint256 betAmount, uint256 guessNumber, uint256 randomNumber) {
+    return (historyBets[queryId].player, historyBets[queryId].betAmount,
+      historyBets[queryId].guessNumber, historyBets[queryId].randomNumber);
+  }
+
+  function getPlayer(uint256 index) public view returns(address){
+    return players[index];
   }
 
   function fundContract() public payable{
@@ -57,6 +72,7 @@ contract coinFlip is ownable{
     newBet.player = player;
     newBet.betAmount = betAmount;
     newBet.guessNumber = guessNumber;
+    newBet.blockNumber = block.number;
     historyBets[queryId] = newBet;
 
     // Storing information regarding the bets of each player.
@@ -91,20 +107,6 @@ contract coinFlip is ownable{
   //   }
   //   emit betResult(queryId, result, betAmount);
   // }
-
-  function getQueryIDs(address player) public view returns(bytes32[] memory) {
-    return playersQueryIds[player];
-  }
-
-  function getBetInfo(bytes32 queryId) public view returns(address player,
-    uint256 betAmount, uint256 guessNumber, uint256 randomNumber) {
-    return (historyBets[queryId].player, historyBets[queryId].betAmount,
-      historyBets[queryId].guessNumber, historyBets[queryId].randomNumber);
-  }
-
-  function getPlayer(uint256 index) public view returns(address){
-    return players[index];
-  }
 
 
   uint256 constant NUMBER_RANDOM_BYTES = 1;
@@ -157,7 +159,7 @@ contract coinFlip is ownable{
   }
 
   function testRandomNumber() public returns(bytes32){
-    bytes32 queryId = bytes32(keccak256(abi.encodePacked(msg.sender)));
+    bytes32 queryId = bytes32(keccak256(abi.encodePacked(block.number)));
     __callback(queryId, "1", bytes("test"));
     return queryId;
   }
