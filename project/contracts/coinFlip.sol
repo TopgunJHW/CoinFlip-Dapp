@@ -119,9 +119,9 @@ contract coinFlip is ownable{
   uint256 CALLBACK_GAS_LIMIT = 200000;
   // bool boolCallbackFunction = false;
   uint256 public moduloRN = 2; // Modula for determining range of the random number
-  bytes32 public lastQueryID;
+  // bytes32 public lastQueryID;
 
-  event logNewProvableQuery(string description);
+  event logNewProvableQuery(bytes32 queryID, string description);
   event generatedRandomNumber(uint256 randomNumber);
 
   // constructor() public{
@@ -156,12 +156,12 @@ contract coinFlip is ownable{
   }
 
   function generateRandomNumber() payable public returns(bytes32){
-    bytes32 queryId = testRandomNumber();
-    // bytes32 queryId = provable_newRandomDSQuery(EXECUTION_DELAY,NUMBER_RANDOM_BYTES,
+    bytes32 queryID = testRandomNumber();
+    // bytes32 queryID = provable_newRandomDSQuery(EXECUTION_DELAY,NUMBER_RANDOM_BYTES,
     //   CALLBACK_GAS_LIMIT);
-    emit logNewProvableQuery("Query for random number has been sent. Waiting for response.");
-    lastQueryID = queryId;
-    return queryId;
+    emit logNewProvableQuery(queryID, "Query for random number has been sent. Waiting for response.");
+    // lastQueryID = queryID;
+    return queryID;
   }
 
   function testRandomNumber() public returns(bytes32){

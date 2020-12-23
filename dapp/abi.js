@@ -55,6 +55,12 @@ var abi = [
     "inputs": [
       {
         "indexed": false,
+        "internalType": "bytes32",
+        "name": "queryID",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
         "internalType": "string",
         "name": "description",
         "type": "string"
@@ -75,21 +81,6 @@ var abi = [
     ],
     "name": "testBlocknumber",
     "type": "event"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "lastQueryID",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
   },
   {
     "constant": true,
