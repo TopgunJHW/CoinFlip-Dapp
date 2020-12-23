@@ -5,7 +5,7 @@ var abi = [
       {
         "indexed": false,
         "internalType": "bytes32",
-        "name": "queryId",
+        "name": "queryID",
         "type": "bytes32"
       },
       {
@@ -29,8 +29,14 @@ var abi = [
     "inputs": [
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
-        "name": "_value",
+        "name": "",
         "type": "uint256"
       }
     ],
@@ -42,12 +48,18 @@ var abi = [
     "inputs": [
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
-        "name": "randomNumber",
+        "name": "",
         "type": "uint256"
       }
     ],
-    "name": "generatedRandomNumber",
+    "name": "fundsWithdrawn",
     "type": "event"
   },
   {
@@ -81,21 +93,6 @@ var abi = [
     ],
     "name": "testBlocknumber",
     "type": "event"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "moduloRN",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
   },
   {
     "constant": true,
@@ -174,7 +171,7 @@ var abi = [
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "queryId",
+        "name": "queryID",
         "type": "bytes32"
       }
     ],
@@ -204,6 +201,11 @@ var abi = [
         "internalType": "uint256",
         "name": "blockNumber",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "setRandomNumber",
+        "type": "bool"
       }
     ],
     "payable": false,
@@ -244,13 +246,7 @@ var abi = [
     "constant": false,
     "inputs": [],
     "name": "withdrawAll",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
@@ -275,7 +271,27 @@ var abi = [
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "queryId",
+        "name": "queryID",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "_result",
+        "type": "string"
+      }
+    ],
+    "name": "__callback",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_myid",
         "type": "bytes32"
       },
       {
@@ -291,36 +307,6 @@ var abi = [
     ],
     "name": "__callback",
     "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "generateRandomNumber",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "testRandomNumber",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"

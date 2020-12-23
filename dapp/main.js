@@ -8,7 +8,7 @@ $(document).ready(function() {
       //contractInstance = new web3.eth.Contract(abi, address)
       // abi = template of the specification of the contract. What are the functions, what are the inputs and the outputs. javascript can than know what type of data to sent and to receive.
       from = accounts[0];
-      contractInstance = new web3.eth.Contract(abi, "0x3AbA305265D08774fe7d579F518825a5dfD7D066", {from: from});
+      contractInstance = new web3.eth.Contract(abi, "0x4039F08C27967c707083Add8ce6DE331De092e5E", {from: from});
       console.log(contractInstance);
 
       $("#bet_button").click(bet)
@@ -33,24 +33,28 @@ $(document).ready(function() {
         // alert("Is mined");
 
         var queryID = receipt.events.logNewProvableQuery.returnValues.queryID;
-        // console.log(queryID);
-        // contractInstance.once("testBlocknumber", function(err, event){
-        //   console.log(event);
+        console.log(queryID);
+        contractInstance.once("testBlocknumber", function(err, event){
+          console.log(event);
         });
-
-      })
-      .then(function(){
-        contractInstance.methods.getQueryIDs(from).call().then(function(queryIDs){
-          var queryID = queryIDs[queryIDs.length-1];
-
-          // console.log(queryIDs);
-          // console.log(queryID);
+        contractInstance.once('betResult', {filter: {queryId: queryID}}, function(err, event){
           contractInstance.methods.getBetInfo(queryID).call().then(function(betResult){
-            insertRow(betResult);
+              console.log("Success")
+              insertRow(betResult);
+            });
           });
-        });
       });
-
+      // .then(function(){
+      //   contractInstance.methods.getQueryIDs(from).call().then(function(queryIDs){
+      //     var queryID = queryIDs[queryIDs.length-1];
+      //
+      //     // console.log(queryIDs);
+      //     // console.log(queryID);
+      //     contractInstance.methods.getBetInfo(queryID).call().then(function(betResult){
+      //       insertRow(betResult);
+      //     });
+      //   });
+      // });
       // .on('betResult', {filter: {queryId: queryID}}, function (err, events){
       //   console.log(events);
       // })
@@ -84,19 +88,36 @@ $(document).ready(function() {
 
     function insertRow(betResult){
       var blockNumber = betResult.blockNumber;
-      var text2 = "You lost ";
-      var amount = betResult.betAmount;
       var choice = headOrTail(betResult.guessNumber);
-      var answer = headOrTail(betResult.randomNumber);
+      var amount = betResult.betAmount;
+      var answer;
+      var result;
 
-      if(betResult.guessNumber == betResult.randomNumber){
-        text2 = "You won ";
-        amount = String(parseInt(amount) * 2);
-      };
+      console.log(betResult.guessNumber);
+      console.log(betResult.randomNumber);
+
+      var bool = betResult.setRandomNumber;
+      // console.log(betResult)
+      // console.log(bool)
+      // console.log(!bool)
+      if (!bool){
+        answer = "Pending";
+        result = "Pending";
+      }else {
+        var textResult = "You lost ";
+
+        if(betResult.guessNumber == betResult.randomNumber){
+          textResult = "You won ";
+          amount = String(parseInt(amount) * 2);
+        }
+
+        answer = headOrTail(betResult.randomNumber);
+        result = textResult + web3.utils.fromWei(amount, "ether") + " ether";
+      }
 
       // console.log(queryID);
       // console.log(blockNumber);
-      insertTableRow(blockNumber, choice, answer, text2 + web3.utils.fromWei(amount, "ether") + " ether");
+      insertTableRow(blockNumber, choice, answer, result);
     };
 
     function insertTableRow(inputC0, inputC1, inputC2, inputC3){
