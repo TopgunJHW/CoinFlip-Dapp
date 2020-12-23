@@ -8,7 +8,7 @@ $(document).ready(function() {
       //contractInstance = new web3.eth.Contract(abi, address)
       // abi = template of the specification of the contract. What are the functions, what are the inputs and the outputs. javascript can than know what type of data to sent and to receive.
       from = accounts[0];
-      contractInstance = new web3.eth.Contract(abi, "0x4039F08C27967c707083Add8ce6DE331De092e5E", {from: from});
+      contractInstance = new web3.eth.Contract(abi, "0x8cEE73d45e6B00D1fB472532E168588c546D0E27", {from: from});
       console.log(contractInstance);
 
       $("#bet_button").click(bet)
@@ -34,9 +34,6 @@ $(document).ready(function() {
 
         var queryID = receipt.events.logNewProvableQuery.returnValues.queryID;
         console.log(queryID);
-        contractInstance.once("testBlocknumber", function(err, event){
-          console.log(event);
-        });
         contractInstance.once('betResult', {filter: {queryId: queryID}}, function(err, event){
           contractInstance.methods.getBetInfo(queryID).call().then(function(betResult){
               console.log("Success")
@@ -44,20 +41,6 @@ $(document).ready(function() {
             });
           });
       });
-      // .then(function(){
-      //   contractInstance.methods.getQueryIDs(from).call().then(function(queryIDs){
-      //     var queryID = queryIDs[queryIDs.length-1];
-      //
-      //     // console.log(queryIDs);
-      //     // console.log(queryID);
-      //     contractInstance.methods.getBetInfo(queryID).call().then(function(betResult){
-      //       insertRow(betResult);
-      //     });
-      //   });
-      // });
-      // .on('betResult', {filter: {queryId: queryID}}, function (err, events){
-      //   console.log(events);
-      // })
     };
 
     function getAllBets(){
@@ -69,7 +52,6 @@ $(document).ready(function() {
       old_tbody.parentNode.replaceChild(new_tbody, old_tbody);
 
       contractInstance.methods.getQueryIDs(from).call().then(function(queryIDs){
-        // console.log(queryIDs)
         insertRowLoop(0, queryIDs)
         });
       };
@@ -90,16 +72,10 @@ $(document).ready(function() {
       var blockNumber = betResult.blockNumber;
       var choice = headOrTail(betResult.guessNumber);
       var amount = betResult.betAmount;
+      var bool = betResult.setRandomNumber;
       var answer;
       var result;
 
-      console.log(betResult.guessNumber);
-      console.log(betResult.randomNumber);
-
-      var bool = betResult.setRandomNumber;
-      // console.log(betResult)
-      // console.log(bool)
-      // console.log(!bool)
       if (!bool){
         answer = "Pending";
         result = "Pending";
@@ -114,9 +90,6 @@ $(document).ready(function() {
         answer = headOrTail(betResult.randomNumber);
         result = textResult + web3.utils.fromWei(amount, "ether") + " ether";
       }
-
-      // console.log(queryID);
-      // console.log(blockNumber);
       insertTableRow(blockNumber, choice, answer, result);
     };
 

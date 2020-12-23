@@ -82,19 +82,6 @@ var abi = [
     "type": "event"
   },
   {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "testBlocknumber",
-    "type": "event"
-  },
-  {
     "constant": true,
     "inputs": [],
     "name": "owner",
@@ -206,27 +193,6 @@ var abi = [
         "internalType": "bool",
         "name": "setRandomNumber",
         "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "index",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPlayer",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
     "payable": false,
