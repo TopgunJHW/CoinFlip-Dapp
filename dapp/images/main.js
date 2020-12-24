@@ -8,7 +8,7 @@ $(document).ready(function() {
       //contractInstance = new web3.eth.Contract(abi, address)
       // abi = template of the specification of the contract. What are the functions, what are the inputs and the outputs. javascript can than know what type of data to sent and to receive.
       from = accounts[0];
-      contractInstance = new web3.eth.Contract(abi, "0xE386e868c890016C36B08d18622F1b05526855Aa", {from: from});
+      contractInstance = new web3.eth.Contract(abi, "0x8cEE73d45e6B00D1fB472532E168588c546D0E27", {from: from});
       console.log(contractInstance);
 
       // var queryIDs_events = [];
@@ -36,14 +36,6 @@ $(document).ready(function() {
       $("#btn_fund").click(fundContract)
       $("#btn_witdrawAll").click(witdrawAll)
       $("#btn_selfDestruct").click(selfDestruct)
-
-      contractInstance.methods.owner().call().then(function(owner){
-        if (owner.toLowerCase() == from.toLowerCase()) {
-          $("#btn_witdrawAll").show();
-          $("#btn_selfDestruct").show()
-        };
-      });
-
     });
 
     // function bet(queryIDs_events){

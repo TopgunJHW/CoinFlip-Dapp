@@ -58,9 +58,13 @@ contract coinFlip is ownable, usingProvable{
   }
 
   function withdrawAll() public onlyOwner{
-      uint256 toTransfer = getBalance();
-      msg.sender.transfer(toTransfer);
-      emit fundsWithdrawn('Funds withdrawn', toTransfer);
+    uint256 toTransfer = getBalance();
+    msg.sender.transfer(toTransfer);
+    emit fundsWithdrawn('Funds withdrawn', toTransfer);
+  }
+
+  function close() public onlyOwner{
+    selfdestruct(msg.sender);
   }
 
   function makeBet(uint256 guessNumber) public payable costs(0.001 ether){
