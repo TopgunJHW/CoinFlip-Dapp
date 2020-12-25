@@ -19,7 +19,7 @@
     <script>
       function coinButton(btn1, btn2){
         btn1_Opacity = 1;
-        btn2_Opacity = 0.6;
+        btn2_Opacity = 0.2;
         setOpacity(btn1, btn1_Opacity);
         setOpacity(btn2, btn2_Opacity);
 
@@ -36,148 +36,146 @@
     </script>
 
     <style>
-    /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-    /* @media screen and (max-width: 700px) {
-      .row {
-        flex-direction: column;
-      }
-    } */
 
-    /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-    /* @media screen and (max-width: 400px) {
-      .navbar a {
-        float: none;
+      /* Navigation bar */
+      .navBar {
+        overflow: hidden;
+        background-color: #acb9ca;
+      }
+
+      .navBar a{
+        float: left;
+        color: #000000;
+        text-align: center;
+        padding: 5px 20px;
+        /* font-size: 18px; */
+        /* height: 40px; */
+      }
+
+      .navBar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .navBar a.active {
+        background-color: #000000;
+        color: white;
+      }
+
+      .navBar b{
+        float: left;
+        color: #000000;
+        text-align: center;
+        padding: 0px 0px;
+        /* font-size: 18px; */
+        /* height: 40px; */
+      }
+
+      /* Header */
+      .header {
+        padding: 25px;
+        text-align: center;
+        background: #d6dce4;
+        /* color: #FFFFFF; */
+      }
+      .header h1 {
+        font-size: 50px;
+      }
+
+      /* Body */
+      .body {
+        /* display: -ms-flexbox; */
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: 5px;
+        margin-left: 5px;
+        height: calc(100vh - 300px);
+      }
+
+      /* Side body */
+      .bodySide {
+        -ms-flex: 45%; /* IE10 */
+        flex: 45%;
+        background-color: #f5f5f5;
+        padding: 20px;
+        /* color: white; */
+      }
+
+      /* Main body */
+      .bodyMain {
+        -ms-flex: 55%; /* IE10 */
+        flex: 55%;
+        background-color: white;
+        padding: 20px;
+        /* color: white; */
+        position: relative;
+        align: left;
+      }
+
+      .box {
+        position: absolute;
+        align: center;
+      }
+
+      /* Footer */
+      .footer {
+        padding: 25px;
+        text-align: center;
+        background: #acb9ca;
+      }
+
+      .button {
+        border: none;
+        outline: none;
+        color: white;
+        padding: 14px 28px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 4px 4px;
+
+        border-radius: 50px ;
+        height: 100px ;
+        width: 100px ;
+      }
+      .button:focus {
+        outline: none;
+      }
+      .img {
+        style="border-radius: 50%;
+      }
+      .img:focus {
+        outline: none;
+      }
+
+      /* .buttonHead {background-color: #4CAF50; opacity: 0.6} /* Green */ */
+      /* .buttonTail {background-color: #008CBA; opacity: 0.6} /* Red */ */
+      /* .btn_bet {width: 10%;} */
+
+      .default {background-color: #acb9ca; color: black; border: 1px solid black;} /* Gray */
+      .default:hover {background: #2196F3; color: white;}
+      .owner {display: none}
+
+      div.ex2 {
+        max-width:200px;
+        margin: auto;
+        border: 1px solid #000000;
+      }
+
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
         width: 100%;
       }
-    } */
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
 
-    /* Navigation bar */
-    .navBar {
-      overflow: hidden;
-      background-color: #acb9ca;
-    }
-
-    .navBar a{
-      float: left;
-      color: #000000;
-      text-align: center;
-      padding: 5px 20px;
-      /* font-size: 18px; */
-      /* height: 40px; */
-    }
-
-    .navBar a:hover {
-      background-color: #ddd;
-      color: black;
-    }
-
-    .navBar a.active {
-      background-color: #000000;
-      color: white;
-    }
-
-    .navBar b{
-      float: left;
-      color: #000000;
-      text-align: center;
-      padding: 0px 0px;
-      /* font-size: 18px; */
-      /* height: 40px; */
-    }
-
-    /* Header */
-    .header {
-      padding: 50px;
-      text-align: center;
-      background: #d6dce4;
-      /* color: #FFFFFF; */
-    }
-    .header h1 {
-      font-size: 50px;
-    }
-
-    /* Body */
-    .body {
-      /* display: -ms-flexbox; */
-      display: flex;
-      -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-      margin-right: 5px;
-      margin-left: 5px;
-      height: calc(100vh - 10px);
-    }
-
-    /* Side body */
-    .bodySide {
-      -ms-flex: 40%; /* IE10 */
-      flex: 40%;
-      background-color: #f5f5f5;
-      padding: 20px;
-      /* color: white; */
-    }
-
-
-    /* Main body */
-    .bodyMain {
-      -ms-flex: 60%; /* IE10 */
-      flex: 60%;
-      background-color: white;
-      padding: 20px;
-      /* color: white; */
-    }
-
-    /* Footer */
-    .footer {
-      padding: 25px;
-      text-align: center;
-      background: #acb9ca;
-    }
-
-    .button {
-      border: none;
-      outline: none;
-      color: white;
-      padding: 14px 28px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 4px 4px;
-
-      border-radius: 50px ;
-      height: 100px ;
-      width: 100px ;
-    }
-    .button:focus {
-      outline: none;
-    }
-
-    .buttonHead {background-color: #4CAF50; opacity: 0.6} /* Green */
-    .buttonTail {background-color: #008CBA; opacity: 0.6} /* Red */
-    .btn_bet {width: 10%;}
-
-    .default {background-color: #acb9ca; color: black; border: 1px solid black;} /* Gray */
-    .default:hover {background: #2196F3; color: white;}
-    .owner {display: none}
-
-    div.ex2 {
-      max-width:200px;
-      margin: auto;
-      border: 1px solid #000000;
-    }
-
-    table {
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-    td, th {
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
-    }
-
-    tr:nth-child(even) {
-      background-color: #dddddd;
-    }
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
     </style>
 
   </head>
@@ -186,7 +184,6 @@
     <div class="navBar">
       <!-- <a class="active" href="#game">Game</a>
       <a href="#funding">Funding</a> -->
-
       <b><input type="number" class="form-control" id="fundAmount" placeholder="Funding amount" style="text-align:center"></b>
       <b><button type="button" id=btn_fund class="btn default">Fund contract</button></b>
       <b><button type="button" id=btn_witdrawAll class="btn default owner">Withdraw all funds</button></b>
@@ -203,7 +200,7 @@
       <div class="bodySide">
 
         <div style="padding: 20px;">
-          <h2>Your bets <button type="button" id="btn_history" class="btn btn-primary" style = "s">Refresh</button></h2>
+          <h2>Your bets <button type="button" id="btn_history" class="btn btn-primary">Refresh</button></h2>
 
           <table id=table_bets>
             <thead style="background-color: #dddddd;">
@@ -222,18 +219,22 @@
       </div>
 
       <div class="bodyMain">
+
         <h2>Reward</h2>
         <p> 2x on bet amount!</p>
-
-        <!-- <input type="image" src="./images/kop.png"/ style="border-radius: 50%">
-        <input type="image" src="./images/munt.png"/ style="border-radius: 50%"> -->
-
+        <br>
         <h2> Flip a coin</h2>
-        <button class="button buttonHead" id="headButton" onclick="coinButton('headButton', 'tailButton')">
+        <input type="image" class="img" src="./images/kop2.png"/ alt="Head"
+          id="headButton" onclick="coinButton('headButton', 'tailButton')"
+          style="border-radius: 50%" width="100" height="100">
+        <input type="image" class="img" src="./images/munt2.png"/ alt="Tail"
+        id="tailButton" onclick="coinButton('tailButton', 'headButton')"
+          style="border-radius: 50%" width="100" height="100">
+        <!-- <button class="button buttonHead" id="headButton" onclick="coinButton('headButton', 'tailButton')">
           Head</button>
         <button class="button buttonTail" id="tailButton" onclick="coinButton('tailButton', 'headButton')">
-          Tail</button>
-        <p>Choose coin side to bet on</p>
+          Tail</button> -->
+        <p>Choose a side to bet on</p>
 
         <h3>You choose:</h3>
         <p id="choice">...</p>
@@ -243,9 +244,8 @@
         <div class="input-group mb-3 ex2">
           <input type="number" class="form-control" id="betAmount" placeholder="0.1" style="text-align:center">
         </div>
-        <button type="button" id="bet_button" class="btn btn-primary btn_bet">Place bet</button>
+        <button type="button" id="bet_button" class="btn btn-primary">Place bet</button>
         <br><br><br>
-
 
       </div>
     </div>
