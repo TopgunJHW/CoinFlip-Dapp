@@ -8,7 +8,7 @@ $(document).ready(function() {
       //contractInstance = new web3.eth.Contract(abi, address)
       // abi = template of the specification of the contract. What are the functions, what are the inputs and the outputs. javascript can than know what type of data to sent and to receive.
       from = accounts[0];
-      contractInstance = new web3.eth.Contract(abi, "0xE386e868c890016C36B08d18622F1b05526855Aa", {from: from});
+      contractInstance = new web3.eth.Contract(abi, "0x9f359e43c8ab17885a0Bd0c354Db0216f960b87A", {from: from});
       console.log(contractInstance);
 
       // var queryIDs_events = [];
