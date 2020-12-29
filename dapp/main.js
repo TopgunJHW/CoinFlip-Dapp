@@ -8,7 +8,7 @@ $(document).ready(function() {
       //contractInstance = new web3.eth.Contract(abi, address)
       // abi = template of the specification of the contract. What are the functions, what are the inputs and the outputs. javascript can than know what type of data to sent and to receive.
       from = accounts[0];
-      contractInstance = new web3.eth.Contract(abi, "0x9f359e43c8ab17885a0Bd0c354Db0216f960b87A", {from: from});
+      contractInstance = new web3.eth.Contract(abi, "0x14892830865271dF2601988F5266361330FD77A6", {from: from});
       console.log(contractInstance);
 
       // var queryIDs_events = [];
@@ -34,12 +34,12 @@ $(document).ready(function() {
       // })
       $("#btn_history").click(getAllBets)
       $("#btn_fund").click(fundContract)
-      $("#btn_witdrawAll").click(witdrawAll)
+      $("#btn_withdrawAll").click(withdrawAll)
       $("#btn_selfDestruct").click(selfDestruct)
 
       contractInstance.methods.owner().call().then(function(owner){
         if (owner.toLowerCase() == from.toLowerCase()) {
-          $("#btn_witdrawAll").show();
+          $("#btn_withdrawAll").show();
           $("#btn_selfDestruct").show()
         };
       });
@@ -69,13 +69,16 @@ $(document).ready(function() {
         var blockNumber = receipt.blockNumber;
         insertTableRow('table_bets_body', queryID, [blockNumber, choice, 'pending', 'pending']);
 
-        contractInstance.once('betResult', {filter: {queryID: queryID}}, function(err, event){
-          console.log("Event trigger Success");
-          console.log("QueryID event equal to queryID input: ", queryID == event.returnValues.queryID);
-          console.log(queryID);
-          console.log(event);
-          contractInstance.methods.getBetInfo(queryID).call().then(function(betResult){
-              insertRow(betResult, queryID, true);
+        contractInstance.once('betResult', {
+          filter: {queryID: queryID},
+          fromBlock: "latest"},
+          function(err, event){
+            console.log("Event trigger Success");
+            console.log("QueryID event equal to queryID input: ", queryID == event.returnValues.queryID);
+            console.log(queryID);
+            console.log(event);
+            contractInstance.methods.getBetInfo(queryID).call().then(function(betResult){
+                insertRow(betResult, queryID, true);
             });
           });
 
@@ -197,7 +200,7 @@ $(document).ready(function() {
       });
     }
 
-    function witdrawAll(){
+    function withdrawAll(){
       contractInstance.methods.withdrawAll().send()
       .on("transactionHash", function(hash){     //.on is an event listener listening to specific event
         console.log(hash);
